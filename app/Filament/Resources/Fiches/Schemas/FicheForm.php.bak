@@ -1,0 +1,45 @@
+<?php
+
+namespace App\Filament\Resources\Fiches\Schemas;
+
+use Filament\Forms\Components\Select;
+use Filament\Forms\Components\TextInput;
+use Filament\Forms\Components\Textarea;
+use Filament\Schemas\Schema;
+
+class FicheForm
+{
+    public static function configure(Schema $schema): Schema
+    {
+        return $schema
+            ->components([
+                Select::make('motif_id')
+                    ->relationship('motif', 'id')
+                    ->required(),
+                TextInput::make('titre')
+                    ->required(),
+                TextInput::make('sujet')
+                    ->required(),
+                TextInput::make('categorie')
+                    ->required(),
+                TextInput::make('numero_appelant'),
+                TextInput::make('service'),
+                TextInput::make('numero_appele'),
+                Textarea::make('description')
+                    ->columnSpanFull(),
+                Textarea::make('commentaire_solution')
+                    ->columnSpanFull(),
+                TextInput::make('statut'),
+                TextInput::make('groupe_traitement'),
+                Select::make('user_id')
+                    ->relationship('user', 'id'),
+                TextInput::make('origine')
+                    ->required()
+                    ->default('Téléphone'),
+                TextInput::make('site')
+                    ->required()
+                    ->default('TCC'),
+                TextInput::make('offre'),
+            ]);
+    }
+}

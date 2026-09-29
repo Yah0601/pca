@@ -1,0 +1,539 @@
+@import "tailwindcss";
+
+
+@import '../../../../vendor/filament/filament/resources/css/theme.css';
+
+@source '../../../../app/Filament/**/*';
+@source '../../../../resources/views/filament/**/*';
+
+/* =========================================================
+   FIX TAILLE DES ICÔNES SVG (FILAMENT & HEROICONS)
+   ========================================================= */
+svg {
+    display: inline-block;
+    vertical-align: middle;
+}
+
+/* Pousse la navigation de la topbar vers la droite, juste à côté du menu profil */
+.fi-topbar-nav-groups,
+.fi-topbar-nav {
+    margin-left: auto !important;
+}
+
+/* Ajuste l'espacement avec la photo/avatar du profil MD */
+.fi-topbar-user-menu {
+    margin-left: 1rem !important;
+}
+
+/* Force les icônes natives de Filament à garder leur taille */
+.fi-icon,
+.fi-sidebar-item-icon,
+.fi-breadcrumbs-item-icon,
+.fi-ta-action-icon,
+.fi-btn-icon,
+svg.heroicon,
+[class*="heroicon-"] {
+    width: 1.25rem !important;
+    height: 1.25rem !important;
+    max-width: 1.25rem !important;
+    max-height: 1.25rem !important;
+    flex-shrink: 0;
+}
+
+/* Style spécifique pour les gros SVG s'il y en a */
+.fi-avatar svg {
+    width: 100% !important;
+    height: 100% !important;
+}
+
+/* =========================================================
+   STYLES DE LA PAGE D'ACCUEIL
+   ========================================================= */
+
+.fi-main-ctn,
+.fi-main {
+    background-color: #f8fafc !important;
+}
+
+.crm-card {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 1.75rem;
+    border-radius: 1.25rem;
+    background-color: #ffffff;
+    min-height: 230px;
+    border: 1px solid #e2e8f0;
+    transition: all 0.2s ease-in-out;
+}
+
+.crm-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 25px -5px rgba(0, 0, 0, 0.08);
+}
+
+/* CARTE ORANGE */
+.crm-card-orange {
+    background: linear-gradient(145deg, #fffaf5 0%, #ffffff 100%);
+    border-color: #ffedd5;
+}
+
+.crm-card-orange:hover {
+    border-color: #fdba74;
+}
+
+.crm-card-orange .icon-bg {
+    background-color: #f97316;
+    color: white;
+}
+
+.crm-card-orange .btn-arrow {
+    background-color: #ffedd5;
+    color: #ea580c;
+}
+
+.crm-card-orange .link-text {
+    color: #ea580c;
+}
+
+/* CARTE BLEUE */
+.crm-card-blue {
+    background: linear-gradient(145deg, #f0f9ff 0%, #ffffff 100%);
+    border-color: #dbeafe;
+}
+
+.crm-card-blue:hover {
+    border-color: #93c5fd;
+}
+
+.crm-card-blue .icon-bg {
+    background-color: #2563eb;
+    color: white;
+}
+
+.crm-card-blue .btn-arrow {
+    background-color: #dbeafe;
+    color: #2563eb;
+}
+
+.crm-card-blue .link-text {
+    color: #2563eb;
+}
+
+/* CARTE VERTE */
+.crm-card-green {
+    background: linear-gradient(145deg, #f0fdf4 0%, #ffffff 100%);
+    border-color: #dcfce7;
+}
+
+.crm-card-green:hover {
+    border-color: #86efac;
+}
+
+.crm-card-green .icon-bg {
+    background-color: #16a34a;
+    color: white;
+}
+
+.crm-card-green .btn-arrow {
+    background-color: #dcfce7;
+    color: #16a34a;
+}
+
+.crm-card-green .link-text {
+    color: #16a34a;
+}
+
+/* =========================================================
+   PAGE BASE
+   ========================================================= */
+
+.fi-main {
+    background-color: #f8fafc !important;
+}
+
+.crm-accueil {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+/* =========================================================
+   CARTES DESIGN MAQUETTE (FOND CLAIR + BORDURE)
+   ========================================================= */
+
+.crm-card {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 1.75rem;
+    border-radius: 1rem;
+    background-color: #ffffff;
+    min-height: 220px;
+    border: 1px solid transparent;
+    transition: all 0.2s ease-in-out;
+}
+
+.crm-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 12px 24px -8px rgba(0, 0, 0, 0.08);
+}
+
+/* CARTE ORANGE */
+.crm-card-orange {
+    background: linear-gradient(135deg, #fffaf5 0%, #ffffff 100%);
+    border-color: #fdba74;
+}
+
+.crm-card-orange .crm-card-icon {
+    background-color: #f97316;
+    color: #ffffff;
+}
+
+.crm-card-orange .crm-card-link {
+    color: #ea580c;
+}
+
+.crm-card-orange .crm-card-btn {
+    background-color: #ffedd5;
+    color: #ea580c;
+}
+
+/* CARTE BLEUE */
+.crm-card-blue {
+    background: linear-gradient(135deg, #f0f9ff 0%, #ffffff 100%);
+    border-color: #93c5fd;
+}
+
+.crm-card-blue .crm-card-icon {
+    background-color: #2563eb;
+    color: #ffffff;
+}
+
+.crm-card-blue .crm-card-link {
+    color: #2563eb;
+}
+
+.crm-card-blue .crm-card-btn {
+    background-color: #dbeafe;
+    color: #2563eb;
+}
+
+/* CARTE VERTE */
+.crm-card-green {
+    background: linear-gradient(135deg, #f0fdf4 0%, #ffffff 100%);
+    border-color: #86efac;
+}
+
+.crm-card-green .crm-card-icon {
+    background-color: #16a34a;
+    color: #ffffff;
+}
+
+.crm-card-green .crm-card-link {
+    color: #16a34a;
+}
+
+.crm-card-green .crm-card-btn {
+    background-color: #dcfce7;
+    color: #16a34a;
+}
+
+/* ÉLÉMENTS DE LA CARTE */
+.crm-card-icon {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.25rem;
+    font-weight: bold;
+    margin-bottom: 1.25rem;
+}
+
+.crm-card-title {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: #0f172a;
+    margin-bottom: 0.5rem;
+}
+
+.crm-card-desc {
+    font-size: 0.875rem;
+    color: #64748b;
+    line-height: 1.4;
+}
+
+.crm-card-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 1.5rem;
+}
+
+.crm-card-link {
+    font-size: 0.9rem;
+    font-weight: 600;
+}
+
+.crm-card-btn {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+}
+
+/* BADGE STATUT */
+.crm-status {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.4rem 0.85rem;
+    border-radius: 9999px;
+    background: #dcfce7;
+    color: #15803d;
+    font-size: 0.85rem;
+    font-weight: 600;
+}
+
+.crm-status-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: #22c55e;
+}
+
+
+/*  */
+.fi-topbar .fi-user-menu-trigger {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.fi-topbar .fi-user-menu-trigger-text {
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: #1f2937;
+    white-space: nowrap;
+}
+
+.fi-topbar .fi-user-menu-trigger {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    padding: 0.35rem 0.75rem 0.35rem 0.35rem;
+    border-radius: 9999px;
+    transition: background-color 0.15s ease;
+}
+
+.fi-topbar .fi-user-menu-trigger:hover {
+    background-color: #f1f5f9;
+}
+
+.fi-topbar .fi-user-menu-trigger-text {
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: #1e293b;
+    white-space: nowrap;
+}
+
+.fi-dropdown-panel {
+    min-width: 14rem;
+}
+
+/* =========================================================
+   CRM SECOURS — BOUTONS PRINCIPAUX
+   ========================================================= */
+
+.fi-btn.fi-color-primary:is([class*="fi-bg-color-"]) {
+    --bg: #F97316 !important;
+    --text: #FFFFFF !important;
+    --hover-bg: #EA580C !important;
+    --hover-text: #FFFFFF !important;
+}
+
+.fi-btn.fi-color-primary:is([class*="fi-bg-color-"]) svg {
+    color: #FFFFFF !important;
+}
+
+/* Rapproche "Administrer" du bloc profil, sans les coller à l'extrême droite séparément */
+.fi-topbar-nav-groups {
+    margin-left: auto !important;
+    margin-right: 0.75rem;
+}
+
+.fi-topbar-end {
+    margin-left: 0 !important;
+}
+
+/* Style "chic" du bouton Administrer */
+.fi-topbar-item-btn {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.5rem 1rem;
+    border-radius: 9999px;
+    background-color: #fff7ed;
+    color: #ea580c;
+    font-weight: 600;
+    font-size: 0.875rem;
+    transition: background-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.fi-topbar-item-btn:hover {
+    background-color: #ffedd5;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+}
+
+.fi-topbar-group-toggle-icon {
+    width: 1rem !important;
+    height: 1rem !important;
+}
+
+/* Masque le nom répété en haut du dropdown utilisateur (déjà visible dans la topbar) */
+.fi-user-menu .fi-dropdown-header {
+    display: none;
+}
+
+
+:root {
+    --crm-orange: #F97316;
+    --crm-orange-dark: #EA580C;
+    --crm-orange-light: #FFF7ED;
+    --crm-orange-hover: #FFEDD5;
+    --crm-text: #1F2937;
+}
+
+
+.fi-btn-color-primary {
+    background-color: var(--crm-orange) !important;
+    color: #FFFFFF !important;
+}
+
+.fi-btn-color-primary:hover {
+    background-color: var(--crm-orange-dark) !important;
+}
+
+
+.fi-topbar .fi-dropdown-trigger {
+    color: var(--crm-orange-dark);
+}
+
+
+/* =========================================================
+   CRM SECOURS — MENU ADMINISTRER
+   ========================================================= */
+
+.crm-administrer {
+    background: #FFF7ED !important;
+    border: 1px solid #FED7AA !important;
+    border-radius: 9999px !important;
+}
+
+.crm-administrer:hover {
+    background: #FFEDD5 !important;
+}
+
+.crm-administrer,
+.crm-administrer span,
+.crm-administrer svg {
+    color: #EA580C !important;
+}
+
+
+/* =========================================================
+   CRM SECOURS — Menu Administrer
+   ========================================================= */
+
+.crm-administrer {
+    background: #FFF7ED !important;
+    border: 1px solid #FED7AA !important;
+    border-radius: 9999px !important;
+}
+
+.crm-administrer:hover {
+    background: #FFEDD5 !important;
+}
+
+/* Bouton Administrer */
+.crm-administrer,
+.crm-administrer span,
+.crm-administrer svg {
+    color: #EA580C !important;
+}
+
+/* Menu déroulant Administrer */
+.crm-administrer+*,
+.fi-dropdown-panel {
+    --crm-menu-text: #1F2937;
+}
+
+/* Texte des éléments du menu */
+.fi-dropdown-panel a,
+.fi-dropdown-panel button,
+.fi-dropdown-panel a span,
+.fi-dropdown-panel button span {
+    color: #1F2937 !important;
+}
+
+/* Survol */
+.fi-dropdown-panel a:hover,
+.fi-dropdown-panel button:hover {
+    background: #FFF7ED !important;
+    color: #1F2937 !important;
+}
+
+/* Icônes éventuelles des éléments */
+.fi-dropdown-panel a svg,
+.fi-dropdown-panel button svg {
+    color: #6B7280 !important;
+}
+
+
+/* =========================================================
+   CRM SECOURS — Survol du profil
+   ========================================================= */
+
+.fi-user-menu-trigger:hover {
+    background: #FFF7ED !important;
+    color: #EA580C !important;
+}
+
+.fi-user-menu-trigger:hover span {
+    color: #EA580C !important;
+}
+
+.fi-user-menu-trigger:hover svg {
+    color: #EA580C !important;
+}
+
+/* Cercle de l'avatar au survol */
+.fi-user-menu-trigger:hover img {
+    border-color: #FDBA74 !important;
+}
+
+
+.fi-app-footer {
+    text-align: center;
+    padding: 1.5rem 1rem;
+    margin-top: 2rem;
+    border-top: 1px solid #e2e8f0;
+    background-color: #ffffff;
+}
+
+.fi-app-footer p {
+    margin: 0;
+    font-size: 0.8125rem;
+    color: #94a3b8;
+    line-height: 1.5;
+}
+
+.fi-app-footer p:first-child {
+    font-weight: 600;
+    color: #64748b;
+}
