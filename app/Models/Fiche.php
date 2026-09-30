@@ -62,12 +62,17 @@ class Fiche extends Model
              * COMMENTAIRE → STATUT + GROUPE DE TRAITEMENT
              */
             if (filled($fiche->commentaire_solution)) {
-                $fiche->statut = 'Clôturé';
-                $fiche->groupe_traitement = 'PlateauTCC';
-            } else {
-                $fiche->statut = 'Actif';
-                $fiche->groupe_traitement = 'BO TCC';
-            }
+    $fiche->statut = 'Clôturé';
+    $fiche->groupe_traitement = 'Plateau_TCC';
+} else {
+    $fiche->statut = 'Actif';
+
+    if ($fiche->service == '7414') {
+        $fiche->groupe_traitement = 'BACKOFFICE RESIDENTIEL TCC';
+    } else {
+        $fiche->groupe_traitement = 'BACKOFFICE_TCC';
+    }
+}
 
             /*
              * UTILISATEUR CONNECTÉ

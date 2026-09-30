@@ -31,6 +31,7 @@ class UserForm
                     ->label('Role')
                     ->placeholder('Sélectionnez')
                     ->options([
+                        'CC' => 'CC',
                         'Superviseur' => 'Superviseur',
                         'Chef de production' => 'Chef de production',
                         'RO' => 'RO',
