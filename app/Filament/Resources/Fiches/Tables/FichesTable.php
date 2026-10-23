@@ -15,13 +15,14 @@ class FichesTable
     {
         return $table
             ->columns([
-                TextColumn::make('motif.motif')
-                    ->searchable(),
+
                 TextColumn::make('titre')
                     ->searchable(),
                 TextColumn::make('sujet')
                     ->searchable(),
                 TextColumn::make('categorie')
+                    ->searchable(),
+                TextColumn::make('motif.motif')
                     ->searchable(),
                 TextColumn::make('numero_appelant')
                     ->searchable(),
@@ -35,7 +36,7 @@ class FichesTable
                     ->searchable(),
                 TextColumn::make('groupe_traitement')
                     ->searchable(),
-                TextColumn::make('user.login')
+                TextColumn::make('user.nom_complet')
                     ->label("Propriétaire")
                     ->searchable(),
                 // TextColumn::make('origine')

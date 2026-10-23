@@ -9,7 +9,9 @@ use Filament\Http\Middleware\DispatchServingFilamentEvent;
 use Filament\Panel;
 use App\Filament\Pages\Auth\Login;
 use Filament\Navigation\NavigationGroup;
+use Filament\Navigation\NavigationItem;
 use Filament\Support\Icons\Heroicon;
+use Filament\View\PanelsRenderHook;
 use Filament\PanelProvider;
 use Filament\Support\Colors\Color;
 use Filament\Widgets\AccountWidget;
@@ -17,7 +19,6 @@ use Filament\Widgets\FilamentInfoWidget;
 use Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse;
 use Illuminate\Cookie\Middleware\EncryptCookies;
 use Illuminate\Foundation\Http\Middleware\PreventRequestForgery;
-use Filament\View\PanelsRenderHook;
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Routing\Middleware\SubstituteBindings;
 use Illuminate\Session\Middleware\StartSession;
@@ -57,6 +58,15 @@ class AdminPanelProvider extends PanelProvider
                     </footer>
                 ')
             )
+            ->navigationItems([
+                NavigationItem::make('Accueil')
+                    ->icon(Heroicon::OutlinedHome)
+                    ->url(fn () => \App\Filament\Pages\Accueil::getUrl())
+                    ->sort(-1)
+                    ->extraAttributes([
+                        'class' => 'crm-accueil',
+                    ]),
+            ])
             ->navigationGroups([
                 NavigationGroup::make()
                     ->label('Administrer')

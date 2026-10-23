@@ -19,10 +19,10 @@ class UserForm
                     ->required(),
                 TextInput::make('login')
                     ->required(),
-                TextInput::make('email')
-                    ->label('Email address')
-                    ->email()
-                    ->required(),
+                // TextInput::make('email')
+                //     ->label('Email address')
+                //     ->email(),
+                    //->required(),
                 // DateTimePicker::make('email_verified_at'),
                 TextInput::make('telephone')
                     ->tel()
@@ -40,6 +40,14 @@ class UserForm
                         // '37070' => '37070',
                         // '7414'  => '7414',
                         // '37171' => '37171',
+                    ])
+                    ->required(),
+                Select::make('division')
+                    ->label('Division')
+                    ->options([
+                        'TCC' => 'TCC',
+                        'CM' => 'CM',
+                        'HV' => 'HV',
                     ])
                     ->required(),
                 // TextInput::make('role')

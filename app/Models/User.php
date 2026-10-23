@@ -21,9 +21,11 @@ class User extends Authenticatable implements HasName, HasAvatar
     protected $fillable = [
         'prenom',
         'nom',
+        'nom_complet',
         'login',
         'email',
         'role',
+        'division',
         'telephone',
         'password',
     ];
@@ -56,15 +58,21 @@ class User extends Authenticatable implements HasName, HasAvatar
 //     return "{$this->prenom} {$this->nom}";
 // }
 
-public function getFilamentName(): string
-{
-    return "{$this->prenom} {$this->nom}";
-}
+    public function getFilamentName(): string
+    {
+        return "{$this->prenom} {$this->nom}";
+    }
 
-public function getFilamentAvatarUrl(): ?string
-{
-    return asset('images/avatar-default.svg');
-}
+    public function getFilamentAvatarUrl(): ?string
+    {
+        return asset('images/avatar-default.svg');
+    }
+
+    protected static function booted(): void {
+        static::saving(function (User $user){
+            $user->nom_complet = trim(($user->prenom ?? '') . ' ' . ($user->nom ?? ''));
+        });
+    }
 
     /**
      * Obtenir les fiches créées/gérées par cet utilisateur.

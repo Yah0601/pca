@@ -47,95 +47,161 @@ class ExportFiches extends Page
 }
 
     public function exporter()
-    {
-        $query = Fiche::query()
-            ->with('user')
-            ->orderBy('id');
+{
+    $user = auth()->user();
 
-        if ($this->statut !== '') {
-            $query->where('statut', $this->statut);
-        }
+    $query = $this->baseQuery()
+    ->with(['user', 'motif'])
+    ->orderBy('id');
+    // $query = Fiche::query()
+    //     ->with(['user', 'motif'])
+    //     ->orderBy('id');
 
-        if ($this->service !== '') {
-            $query->where('service', $this->service);
-        }
+    // Limiter à la division de l'utilisateur, sauf Super Admin
+    // if ($user?->role !== 'Super Admin') {
+    //     $query->whereHas('user', fn ($q) => $q->where('division', $user->division));
+    // }
 
-        if ($this->groupe !== '') {
-            $query->where('groupe_traitement', $this->groupe);
-        }
+    if($user?->role !== 'Super Admin'){
+        $query->where('division', $user->division);
+    }
 
-        if ($this->dateDebut !== '') {
-            $query->whereDate('created_at', '>=', $this->dateDebut);
-        }
 
-        if ($this->dateFin !== '') {
-            $query->whereDate('created_at', '<=', $this->dateFin);
-        }
+    if ($this->statut !== '') {
+        $query->where('statut', $this->statut);
+    }
 
-        $fiches = $query->get();
+    if ($this->service !== '') {
+        $query->where('service', $this->service);
+    }
 
-        $filename = 'export-fiches-' . now()->format('Y-m-d_H-i-s') . '.csv';
+    if ($this->groupe !== '') {
+        $query->where('groupe_traitement', $this->groupe);
+    }
 
-        return response()->streamDownload(function () use ($fiches) {
+    if ($this->dateDebut !== '') {
+        $query->whereDate('created_at', '>=', $this->dateDebut);
+    }
 
-            $handle = fopen('php://output', 'w');
+    if ($this->dateFin !== '') {
+        $query->whereDate('created_at', '<=', $this->dateFin);
+    }
 
-            // BOM UTF-8 pour Excel
-            fwrite($handle, "\xEF\xBB\xBF");
+    $fiches = $query->get();
+
+    $filename = 'export-fiches-' . now()->format('Y-m-d_H-i-s') . '.csv';
+
+    return response()->streamDownload(function () use ($fiches) {
+
+        $handle = fopen('php://output', 'w');
+
+        // BOM UTF-8 pour Excel
+        fwrite($handle, "\xEF\xBB\xBF");
+
+        fputcsv($handle, [
+            'ID',
+            'Titre',
+            'Motif',
+            'Sujet',
+            'Catégorie',
+            'Numéro appelant',
+            'Lignes du client',
+            'Service',
+            'Numéro appelé',
+            'Description',
+            'Commentaire solution',
+            'Statut',
+            'Groupe de traitement',
+            'Origine',
+            'Site',
+            'Offre',
+            'Créée par',
+            'Date de création',
+        ], ';');
+
+        foreach ($fiches as $fiche) {
+
+            $createdBy = $fiche->user
+                ? trim(($fiche->user->prenom ?? '') . ' ' . ($fiche->user->nom ?? ''))
+                : '';
 
             fputcsv($handle, [
-                'ID',
-                'Titre',
-                'Motif',
-                'Sujet',
-                'Catégorie',
-                'Numéro appelant',
-                'Lignes du client',
-                'Service',
-                'Numéro appelé',
-                'Description',
-                'Commentaire solution',
-                'Statut',
-                'Groupe de traitement',
-                'Origine',
-                'Site',
-                'Offre',
-                'Créée par',
-                'Date de création',
+                $fiche->id,
+                $fiche->titre,
+                $fiche->motif?->motif ?? '',
+                $fiche->sujet,
+                $fiche->categorie,
+                $fiche->numero_appelant,
+                $fiche->lignes_client ?? '',
+                $fiche->service,
+                $fiche->numero_appele,
+                $fiche->description,
+                $fiche->commentaire_solution,
+                $fiche->statut,
+                $fiche->groupe_traitement,
+                $fiche->origine,
+                $fiche->site,
+                $fiche->offre,
+                $createdBy,
+                $fiche->created_at?->format('d/m/Y H:i'),
             ], ';');
+        }
 
-            foreach ($fiches as $fiche) {
+        fclose($handle);
 
-                $createdBy = $fiche->user
-                    ? trim(($fiche->user->prenom ?? '') . ' ' . ($fiche->user->nom ?? ''))
-                    : '';
+    }, $filename, [
+        'Content-Type' => 'text/csv; charset=UTF-8',
+    ]);
+}
 
-                fputcsv($handle, [
-                    $fiche->id,
-                    $fiche->titre,
-                    $fiche->motif?->motif ?? '',
-                    $fiche->sujet,
-                    $fiche->categorie,
-                    $fiche->numero_appelant,
-                    $fiche->lignes_client ?? '',
-                    $fiche->service,
-                    $fiche->numero_appele,
-                    $fiche->description,
-                    $fiche->commentaire_solution,
-                    $fiche->statut,
-                    $fiche->groupe_traitement,
-                    $fiche->origine,
-                    $fiche->site,
-                    $fiche->offre,
-                    $createdBy,
-                    $fiche->created_at?->format('d/m/Y H:i'),
-                ], ';');
-            }
 
-            fclose($handle);
+protected function baseQuery()
+{
+    $user = auth()->user();
+    $query = Fiche::query();
 
-        }, $filename, [
-            'Content-Type' => 'text/csv; charset=UTF-8',
-        ]);
+    if ($user?->role !== 'Super Admin') {
+        $query->where('division', $user->division);
     }
+
+    return $query;
+}
+
+public function getGroupes(): array
+{
+    $user = auth()->user();
+
+    // Super Admin : toutes les divisions, les autres : la leur seulement
+    $divisions = $user?->role === 'Super Admin'
+        ? \App\Models\User::whereNotNull('division')
+            ->where('division', '!=', '')
+            ->distinct()
+            ->orderBy('division')
+            ->pluck('division')
+            ->all()
+        : [$user->division];
+
+    $groupes = [];
+
+    foreach ($divisions as $division) {
+        $groupes[] = 'Plateau_' . $division;
+        $groupes[] = 'BACKOFFICE_' . $division;
+        $groupes[] = 'BACKOFFICE RESIDENTIEL ' . $division;
+    }
+
+    return $groupes;
+}
+
+public function getServices(): array
+{
+    return $this->baseQuery()
+        ->whereNotNull('service')
+        ->where('service', '!=', '')
+        ->distinct()
+        ->orderBy('service')
+        ->pluck('service')
+        ->all();
+}
+
+
 }

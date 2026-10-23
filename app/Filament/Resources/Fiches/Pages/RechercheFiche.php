@@ -39,8 +39,13 @@ class RechercheFiche extends Page
         ]);
 
         $valeur = trim($this->recherche);
+        $user = auth()->user();
 
         $query = Fiche::query();
+
+          if ($user?->role !== 'Super Admin') {
+        $query->where('division', $user->division);
+    }
 
         if (ctype_digit($valeur)) {
             $query->where(function ($query) use ($valeur) {

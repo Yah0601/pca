@@ -4,6 +4,8 @@ namespace App\Filament\Resources\Fiches\Pages;
 
 use App\Filament\Resources\Fiches\FicheResource;
 use Filament\Resources\Pages\CreateRecord;
+    use App\Filament\Concerns\HasRetourAction;
+
 
 class CreateFiche extends CreateRecord
 {
@@ -13,4 +15,8 @@ class CreateFiche extends CreateRecord
     {
         return 'Fiche créée avec succès';
     }
+
+
 }
+
+

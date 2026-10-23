@@ -19,17 +19,21 @@ class UsersTable
                     ->searchable(),
                 TextColumn::make('nom')
                     ->searchable(),
+                TextColumn::make('nom_complet')
+                    ->searchable(),
                 TextColumn::make('login')
                     ->searchable(),
-                TextColumn::make('email')
-                    ->label('Email address')
-                    ->searchable(),
+                // TextColumn::make('email')
+                //     ->label('Email address')
+                //     ->searchable(),
                 // TextColumn::make('email_verified_at')
                 //     ->dateTime()
                 //     ->sortable(),
                 TextColumn::make('telephone')
                     ->searchable(),
                 TextColumn::make('role')
+                    ->searchable(),
+                TextColumn::make('division')
                     ->searchable(),
                 TextColumn::make('created_at')
                     ->dateTime()

@@ -82,9 +82,14 @@ public static function getNavigationGroup(): ?string
 public static function getEloquentQuery(): Builder
 {
     $query = parent::getEloquentQuery();
+    $user = auth()->user();
 
-    if (auth()->user()?->role === 'CC') {
-        $query->where('user_id', auth()->id());
+    if ($user?->role === 'CC') {
+        // Un CC ne voit que ses propres fiches
+        $query->where('user_id', $user->id);
+    } elseif ($user?->role !== 'Super Admin') {
+        // Les autres rôles ne voient que les fiches de leur division
+        $query->where('division', $user->division);
     }
 
     return $query;

@@ -494,6 +494,22 @@ svg.heroicon,
     color: #6B7280 !important;
 }
 
+.crm-accueil .fi-topbar-item-btn {
+    background-color: #fff7ed;
+    border: 1px solid #fed7aa;
+    border-radius: 9999px;
+    color: #ea580c;
+}
+
+.crm-accueil .fi-topbar-item-btn:hover {
+    background-color: #ffedd5;
+}
+
+.crm-accueil .fi-topbar-item-label,
+.crm-accueil .fi-icon {
+    color: #ea580c;
+}
+
 
 /* =========================================================
    CRM SECOURS — Survol du profil

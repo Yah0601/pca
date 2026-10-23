@@ -20,6 +20,7 @@ class Fiche extends Model
         'commentaire_solution',
         'statut',
         'groupe_traitement',
+        'division',
         'user_id',
         'origine',
         'site',
@@ -61,18 +62,20 @@ class Fiche extends Model
             /*
              * COMMENTAIRE → STATUT + GROUPE DE TRAITEMENT
              */
-            if (filled($fiche->commentaire_solution)) {
-    $fiche->statut = 'Clôturé';
-    $fiche->groupe_traitement = 'Plateau_TCC';
-} else {
-    $fiche->statut = 'Actif';
+            $division = auth()->user()->division;
 
-    if ($fiche->service == '7414') {
-        $fiche->groupe_traitement = 'BACKOFFICE RESIDENTIEL TCC';
-    } else {
-        $fiche->groupe_traitement = 'BACKOFFICE_TCC';
-    }
-}
+            if (filled($fiche->commentaire_solution)) {
+                $fiche->statut = 'Clôturé';
+                $fiche->groupe_traitement = 'Plateau_' . $division;
+            } else {
+                $fiche->statut = 'Actif';
+
+            if ($fiche->service == '7414') {
+                $fiche->groupe_traitement = 'BACKOFFICE RESIDENTIEL ' . $division;
+            } else {
+                $fiche->groupe_traitement = 'BACKOFFICE_' . $division;
+            }
+        }
 
             /*
              * UTILISATEUR CONNECTÉ
@@ -80,6 +83,10 @@ class Fiche extends Model
             if (! $fiche->user_id && auth()->check()) {
                 $fiche->user_id = auth()->id();
             }
+
+            if (empty($fiche->division)) {
+            $fiche->division = auth()->user()?->division;
+        }
         });
     }
 
