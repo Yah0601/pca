@@ -59,6 +59,9 @@ class ExportFiches extends Page
         return in_array(auth()->user()?->role, [
             'Super Admin',
             'Chef de production',
+            'Superviseur',
+            'Agent qualité',
+            'CC',
             'RO',
         ], true);
     }
