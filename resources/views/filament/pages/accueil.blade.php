@@ -89,7 +89,7 @@
             {{-- ============================
                  CC : MES FICHES
             ============================= --}}
-            @if(auth()->user()->role === 'CC')
+
 
                 <a
                     href="{{ \App\Filament\Resources\Fiches\Pages\ListFiches::getUrl() }}"
@@ -114,12 +114,17 @@
 
                 </a>
 
-            @else
+            {{-- @if(auth()->user()?->role !== 'CC') --}}
 
                 {{-- ============================
                      ADMIN : EXPORTER
                 ============================= --}}
-                <a
+
+
+            {{-- @endif --}}
+
+            @if (\App\Filament\Resources\Fiches\Pages\ExportFiches::canAccess())
+    <a
                     href="{{ \App\Filament\Resources\Fiches\Pages\ExportFiches::getUrl() }}"
                     class="block p-6 bg-emerald-50/50 hover:bg-emerald-50 border border-emerald-200/60 rounded-2xl transition duration-200 shadow-sm hover:shadow"
                 >
@@ -141,8 +146,7 @@
                     </span>
 
                 </a>
-
-            @endif
+@endif
 
         </div>
 
