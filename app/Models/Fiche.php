@@ -87,6 +87,10 @@ class Fiche extends Model
             if (empty($fiche->division)) {
             $fiche->division = auth()->user()?->division;
         }
+
+        if (empty($fiche->site)) {
+            $fiche->site = auth()->user()?->division;
+        }
         });
     }
 

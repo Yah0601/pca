@@ -87,10 +87,11 @@ public static function getEloquentQuery(): Builder
     if ($user?->role === 'CC') {
         // Un CC ne voit que ses propres fiches
         $query->where('user_id', $user->id);
-    } elseif ($user?->role !== 'Super Admin') {
-        // Les autres rôles ne voient que les fiches de leur division
-        $query->where('division', $user->division);
-    }
+     }
+    //elseif ($user?->role !== 'Super Admin') {
+    //     // Les autres rôles ne voient que les fiches de leur division
+    //     $query->where('division', $user->division);
+    // }
 
     return $query;
 }

@@ -43,9 +43,9 @@ class RechercheFiche extends Page
 
         $query = Fiche::query();
 
-          if ($user?->role !== 'Super Admin') {
-        $query->where('division', $user->division);
-    }
+    //       if ($user?->role !== 'Super Admin') {
+    //     $query->where('division', $user->division);
+    // }
 
         if (ctype_digit($valeur)) {
             $query->where(function ($query) use ($valeur) {

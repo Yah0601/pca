@@ -39,7 +39,7 @@ return new class extends Migration
 
             $table->string('origine')->default('Téléphone');
 
-            $table->string('site')->default('TCC');
+            $table->string('site')->nullable();
 
             $table->string('offre')->nullable();
 
