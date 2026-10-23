@@ -87,14 +87,18 @@
 
 
             {{-- ============================
-                 CC : MES FICHES
+                MES FICHES
             ============================= --}}
 
 
-                <a
+                 {{-- <a
                     href="{{ \App\Filament\Resources\Fiches\Pages\ListFiches::getUrl() }}"
                     class="block p-6 bg-emerald-50/50 hover:bg-emerald-50 border border-emerald-200/60 rounded-2xl transition duration-200 shadow-sm hover:shadow"
-                >
+                > --}}
+                <a
+    href="{{ \App\Filament\Resources\Fiches\Pages\ListFiches::getUrl(['mes_fiches' => 1]) }}"
+    class="block p-6 bg-emerald-50/50 hover:bg-emerald-50 border border-emerald-200/60 rounded-2xl transition duration-200 shadow-sm hover:shadow"
+>
 
                     <div class="w-10 h-10 rounded-full bg-emerald-600 text-white flex items-center justify-center font-bold mb-4">
                         ✓

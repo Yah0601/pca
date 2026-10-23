@@ -168,11 +168,13 @@ class ExportFiches extends Page
             fwrite($handle, "\xEF\xBB\xBF");
 
             fputcsv($handle, [
-                'ID',
+               // 'ID',
                 'Titre',
-                'Motif',
+                'Origine',
+                'Offre',
                 'Sujet',
                 'Catégorie',
+                'Motif',
                 'Numéro appelant',
                 'Lignes du client',
                 'Service',
@@ -181,9 +183,7 @@ class ExportFiches extends Page
                 'Commentaire solution',
                 'Statut',
                 'Groupe de traitement',
-                'Origine',
                 'Site',
-                'Offre',
                 'Créée par',
                 'Date de création',
             ], ';');
@@ -195,11 +195,13 @@ class ExportFiches extends Page
                     : '';
 
                 fputcsv($handle, [
-                    $fiche->id,
+                    // $fiche->id,
                     $fiche->titre,
-                    $fiche->motif?->motif ?? '',
+                    $fiche->origine,
+                    $fiche->offre,
                     $fiche->sujet,
                     $fiche->categorie,
+                    $fiche->motif?->motif ?? '',
                     $fiche->numero_appelant,
                     $fiche->lignes_client ?? '',
                     $fiche->service,
@@ -208,9 +210,7 @@ class ExportFiches extends Page
                     $fiche->commentaire_solution,
                     $fiche->statut,
                     $fiche->groupe_traitement,
-                    $fiche->origine,
                     $fiche->site,
-                    $fiche->offre,
                     $createdBy,
                     $fiche->created_at?->format('d/m/Y H:i'),
                 ], ';');
