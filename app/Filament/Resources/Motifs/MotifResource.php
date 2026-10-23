@@ -53,9 +53,11 @@ protected static ?int $navigationSort = 2;
     public static function shouldRegisterNavigation(): bool
 {
     return in_array(auth()->user()?->role, [
-        'Superviseur',
+       // 'Superviseur',
         'Chef de production',
         'RO',
+        //'Agent qualité',
+        'Chef de production',
         'Super Admin',
     ]);
 }

@@ -21,7 +21,7 @@ class ExportFiches extends Page
 
     public string $service = '';
 
-    public string $groupe = '';
+    public string $site = '';
 
     public string $dateDebut = '';
 
@@ -43,6 +43,8 @@ class ExportFiches extends Page
             'Superviseur',
             'Chef de production',
             'RO',
+            'Agent qualité',
+            'CC',
             'Super Admin',
         ], true);
     }
@@ -73,29 +75,45 @@ class ExportFiches extends Page
         return $query;
     }
 
-    public function getGroupes(): array
-    {
-        $user = auth()->user();
+    // public function getGroupes(): array
+    // {
+    //     $user = auth()->user();
 
-        $divisions = $this->voitToutesLesDivisions()
-            ? User::whereNotNull('division')
-                ->where('division', '!=', '')
-                ->distinct()
-                ->orderBy('division')
-                ->pluck('division')
-                ->all()
-            : [$user->division];
+    //     $divisions = $this->voitToutesLesDivisions()
+    //         ? User::whereNotNull('division')
+    //             ->where('division', '!=', '')
+    //             ->distinct()
+    //             ->orderBy('division')
+    //             ->pluck('division')
+    //             ->all()
+    //         : [$user->division];
 
-        $groupes = [];
+    //     $groupes = [];
 
-        foreach ($divisions as $division) {
-            $groupes[] = 'Plateau_' . $division;
-            $groupes[] = 'BACKOFFICE_' . $division;
-            $groupes[] = 'BACKOFFICE RESIDENTIEL ' . $division;
-        }
+    //     foreach ($divisions as $division) {
+    //         $groupes[] = 'Plateau_' . $division;
+    //         $groupes[] = 'BACKOFFICE_' . $division;
+    //         $groupes[] = 'BACKOFFICE RESIDENTIEL ' . $division;
+    //     }
 
-        return $groupes;
+    //     return $groupes;
+    // }
+
+
+    public function getSites(): array
+{
+    if ($this->voitToutesLesDivisions()) {
+        return User::whereNotNull('division')
+            ->where('division', '!=', '')
+            ->distinct()
+            ->orderBy('division')
+            ->pluck('division')
+            ->all();
     }
+
+    return [auth()->user()->division];
+}
+
 
     public function getServices(): array
     {
@@ -122,9 +140,13 @@ class ExportFiches extends Page
             $query->where('service', $this->service);
         }
 
-        if ($this->groupe !== '') {
-            $query->where('groupe_traitement', $this->groupe);
-        }
+        // if ($this->groupe !== '') {
+        //     $query->where('groupe_traitement', $this->groupe);
+        // }
+
+        if ($this->site !== '') {
+    $query->where('division', $this->site);
+}
 
         if ($this->dateDebut !== '') {
             $query->whereDate('created_at', '>=', $this->dateDebut);

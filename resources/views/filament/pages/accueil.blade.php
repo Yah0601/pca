@@ -123,7 +123,7 @@
 
             {{-- @endif --}}
 
-            @if (\App\Filament\Resources\Fiches\Pages\ExportFiches::canAccess())
+            {{-- @if (\App\Filament\Resources\Fiches\Pages\ExportFiches::canAccess()) --}}
     <a
                     href="{{ \App\Filament\Resources\Fiches\Pages\ExportFiches::getUrl() }}"
                     class="block p-6 bg-emerald-50/50 hover:bg-emerald-50 border border-emerald-200/60 rounded-2xl transition duration-200 shadow-sm hover:shadow"
@@ -146,7 +146,7 @@
                     </span>
 
                 </a>
-@endif
+{{-- @endif --}}
 
         </div>
 

@@ -60,19 +60,35 @@
                         </select>
                     </div>
 
-                    {{-- Groupe --}}
+                    {{-- Site --}}
+                    {{-- <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">
+                            Site
+                        </label>
+                        <select
+                            wire:model="groupe"
+                            style="height: 44px;"
+                            class="w-full rounded-xl border border-gray-300 bg-gray-50 px-3 text-sm text-gray-800 shadow-sm transition focus:border-emerald-500 focus:bg-white focus:ring-2 focus:ring-emerald-500/30"
+                        >
+                            <option value="">Tous</option>
+                            @foreach ($this->getGroupes() as $groupe)
+                                <option value="{{ $groupe }}">{{ $groupe }}</option>
+                            @endforeach
+                        </select>
+                    </div> --}}
+
                     <div>
     <label class="block text-sm font-medium text-gray-700 mb-2">
-        Groupe de traitement
+        Site
     </label>
     <select
-        wire:model="groupe"
+        wire:model="site"
         style="height: 44px;"
         class="w-full rounded-xl border border-gray-300 bg-gray-50 px-3 text-sm text-gray-800 shadow-sm transition focus:border-emerald-500 focus:bg-white focus:ring-2 focus:ring-emerald-500/30"
     >
         <option value="">Tous</option>
-        @foreach ($this->getGroupes() as $groupe)
-            <option value="{{ $groupe }}">{{ $groupe }}</option>
+        @foreach ($this->getSites() as $siteOption)
+            <option value="{{ $siteOption }}">{{ $siteOption }}</option>
         @endforeach
     </select>
 </div>
