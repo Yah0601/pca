@@ -49,11 +49,15 @@ class AdminPanelProvider extends PanelProvider
                     <link rel="apple-touch-icon" sizes="180x180" href="' . asset('images/apple-touch-icon.png') . '">
                 '
             )
+//             ->renderHook(
+// PanelsRenderHook::FOOTER,
+// fn (): string => \Illuminate\Support\Facades\Auth::check() ? view('filament.admin.footer')->render(): '',
+// )
             ->renderHook(
                 PanelsRenderHook::BODY_END,
                 fn () => Blade::render('
                     <footer class="fi-app-footer">
-                        <p>© 2026 TCC Mali — CRM Secours</p>
+                        <p>© 2026 IT/TCC Mali — CRM Secours</p>
                         <p>Application de continuité de service</p>
                     </footer>
                 ')

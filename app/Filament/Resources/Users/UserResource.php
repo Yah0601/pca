@@ -57,7 +57,7 @@ protected static ?int $navigationSort = 3;
         'Chef de production',
         'RO',
         //'Agent qualité',
-        'Chef de production',
+        
         'Super Admin',
     ]);
 }
